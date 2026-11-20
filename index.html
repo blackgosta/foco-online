@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#09090b">
+  <meta name="description" content="Acompanhe sua rotina de estudos e seus horários do Foco 20:30.">
+  <title>FOCO / Painel de estudos</title>
+  <link rel="stylesheet" href="./painel.css">
+  <script defer src="./config.js"></script>
+  <script defer src="./painel.js"></script>
+</head>
+<body>
+  <div class="ambient ambient-a" aria-hidden="true"></div>
+  <div class="ambient ambient-b" aria-hidden="true"></div>
+  <div class="shell" id="app" hidden>
+    <aside class="sidebar">
+      <div class="brand"><div class="brand-icon">F/</div><div><strong>FOCO<span>.</span></strong><small>SISTEMA DE ESTUDOS</small></div></div>
+      <nav class="sidebar-nav" aria-label="Navegação">
+        <a href="#visao-geral" class="nav-current"><span>◫</span> Visão geral</a>
+        <a href="#calendario"><span>▦</span> Calendário</a>
+        <a href="#diario"><span>✎</span> Diário de estudo</a>
+        <a href="#horarios"><span>◷</span> Horários</a>
+        <a href="#historico"><span>☷</span> Histórico</a>
+      </nav>
+      <div class="sidebar-tip"><span>●</span><p><strong>BANCO DE DADOS PRIVADO</strong><br>Sincronização em nuvem.</p></div>
+      <button id="logout" class="quiet logout" type="button">↪ Sair do painel</button>
+    </aside>
+    <main class="main">
+      <div class="topbar"><span><i class="online-dot"></i> <span id="connection">Conectado à nuvem</span></span><span id="todayLabel">—</span></div>
+      <section class="hero" id="visao-geral">
+        <div><p class="eyebrow">FOCO / VISÃO GERAL</p><h1>Controle de<br><em>estudos.</em></h1><p class="hero-text">Horários, registros e tempo estudado. Sem distração.</p></div>
+        <div class="hero-side"><div class="glow-star">20:30</div><span id="heroBadge">SEM SEQUÊNCIA</span></div>
+      </section>
+      <section class="stats-grid" aria-label="Indicadores">
+        <article class="metric"><div class="metric-top"><span>SEQUÊNCIA ATUAL</span><span class="metric-icon">01</span></div><div class="metric-main"><strong id="currentStreak">0</strong><span>dias</span></div><div class="metric-sub">Dias consecutivos de estudo</div></article>
+        <article class="metric"><div class="metric-top"><span>MAIOR SEQUÊNCIA</span><span class="metric-icon">02</span></div><div class="metric-main"><strong id="bestStreak">0</strong><span>dias</span></div><div class="metric-sub">Seu recorde pessoal</div></article>
+        <article class="metric"><div class="metric-top"><span>DIAS ESTUDADOS</span><span class="metric-icon">03</span></div><div class="metric-main"><strong id="allStudied">0</strong><span>no total</span></div><div class="metric-sub">Desde o início do acompanhamento</div></article>
+        <article class="metric"><div class="metric-top"><span>TEMPO REGISTRADO</span><span class="metric-icon">04</span></div><div class="metric-main"><strong id="allHours">0h</strong></div><div class="metric-sub">Horas e minutos que você informou</div></article>
+        <article class="metric"><div class="metric-top"><span>HORÁRIOS ATIVOS</span><span class="metric-icon">05</span></div><div class="metric-main"><strong id="activeSchedules">0</strong><span>sessões</span></div><div class="metric-sub">Lembretes configurados</div></article>
+      </section>
+      <section class="panel calendar-panel" id="calendario">
+        <div class="panel-header"><div><p class="eyebrow">PROGRESSO</p><h2>Seu ano de estudos</h2><p>Últimos 12 meses. Verde: estudou. Vermelho: não estudou.</p></div><div class="legend"><span>Menos</span><i class="lv0"></i><i class="lv1"></i><i class="lv2"></i><i class="lv3"></i><i class="lv4"></i><span>Mais</span><span class="legend-no"><i class="lv-no"></i> Falta</span></div></div>
+        <div class="calendar-wrap"><div class="months" id="monthLabels" aria-hidden="true"></div><div class="cal-body"><div class="weekdays"><span>Dom</span><span>Seg</span><span>Ter</span><span>Qua</span><span>Qui</span><span>Sex</span><span>Sáb</span></div><div class="calendar-grid" id="calendar" role="grid" aria-label="Calendário de dias estudados"></div></div></div>
+        <div class="day-detail" id="dayDetail" aria-live="polite"><span>Selecione um quadradinho para ver os registros daquele dia.</span></div>
+      </section>
+      <div class="two-cols">
+        <section class="panel month-panel" id="mensal"><div class="panel-header tight"><div><p class="eyebrow">ESTATÍSTICAS</p><h2>Resumo do mês</h2></div><label class="month-control"><span>Mês</span><input type="month" id="monthInput"></label></div>
+          <div class="month-figures"><div><strong id="monthYes">0</strong><span>Dias estudados</span></div><div><strong id="monthNo">0</strong><span>Faltas declaradas</span></div><div><strong id="monthEmpty">0</strong><span>Dias sem registro</span></div></div>
+          <div class="time-summary"><span>Tempo registrado no mês</span><strong id="monthTime">0 min</strong></div>
+          <div class="progress-heading"><span>Taxa de presença registrada*</span><strong id="monthPercent">0%</strong></div><div class="progress-track"><div id="progressFill"></div></div><p class="fineprint">* Percentual de dias com estudo registrado, entre os dias acompanhados no mês. Não mede horas estudadas.</p>
+        </section>
+        <section class="panel next-panel"><p class="eyebrow">PRÓXIMA SESSÃO</p><h2 id="nextName">Carregando...</h2><div class="next-big"><span id="nextTime">--:--</span><span id="nextWhen">—</span></div><p id="nextHint">A tela de estudo aparecerá automaticamente quando chegar a hora, se o PC estiver ligado.</p><a class="link-cta" href="#horarios">Gerenciar horários <span>→</span></a></section>
+      </div>
+      <section class="panel study-panel" id="diario">
+        <div class="panel-header"><div><p class="eyebrow">DIÁRIO</p><h2>Quanto você estudou?</h2><p>Registre a duração e o conteúdo das sessões. O preenchimento pode ser feito depois.</p></div><span class="pending-badge" id="pendingCount">0 pendentes</span></div>
+        <div class="diary-grid" id="diaryList"></div>
+      </section>
+      <section class="panel schedules-panel" id="horarios"><div class="panel-header"><div><p class="eyebrow">SUA ROTINA</p><h2>Horários de estudo</h2><p>Crie, edite ou pause sessões nos dias da semana que quiser.</p></div><button class="primary" id="newSchedule" type="button">+ Novo horário</button></div><div id="scheduleList" class="schedule-list"></div></section>
+      <section class="panel records-panel" id="historico"><div class="panel-header"><div><p class="eyebrow">LINHA DO TEMPO</p><h2>Histórico de decisões</h2><p>Decisões, duração, conteúdo e motivos das ausências.</p></div></div><div class="table-wrap"><table><thead><tr><th>DATA</th><th>SESSÃO</th><th>DECISÃO</th><th>TEMPO</th><th>CONTEÚDO / MOTIVO</th><th>AÇÃO</th></tr></thead><tbody id="recordRows"></tbody></table></div></section>
+      <p class="footer">FOCO / SISTEMA DE ESTUDOS ONLINE <span>—</span> V5 · NUVEM</p>
+    </main>
+  </div>
+  <div id="loginScreen" class="login-screen"><div class="login-card"><div class="login-logo">F/</div><p class="eyebrow">ACESSO AO SISTEMA</p><h1>Painel de<br><em>estudos.</em></h1><p>Insira sua chave privada da nuvem. Nunca a publique no GitHub.</p><form id="loginForm"><label for="keyInput">CHAVE DE ACESSO</label><input id="keyInput" autocomplete="off" spellcheck="false" placeholder="Cole sua chave aqui" required type="password"><button type="submit" class="primary">Entrar no painel →</button></form><p class="login-error" id="loginError" role="alert"></p><small>🔒 Apenas os dados exigem a chave. O site é público, mas o banco é protegido.</small></div></div>
+  <dialog id="scheduleDialog"><form id="scheduleForm" class="schedule-form"><div class="dialog-head"><div><p class="eyebrow">CONFIGURAÇÃO</p><h2 id="dialogTitle">Novo horário</h2></div><button type="button" class="close" id="closeDialog" aria-label="Fechar">×</button></div><input type="hidden" id="editId"><label for="scheduleName">Nome da sessão</label><input id="scheduleName" maxlength="60" required placeholder="Ex.: Matemática, revisão, leitura..."><label for="scheduleTime">Horário</label><input id="scheduleTime" type="time" value="20:30" required><label>Dias da semana</label><div class="days" id="daysGroup"><label><input type="checkbox" value="0"><span>D</span></label><label><input type="checkbox" value="1"><span>S</span></label><label><input type="checkbox" value="2"><span>T</span></label><label><input type="checkbox" value="3"><span>Q</span></label><label><input type="checkbox" value="4"><span>Q</span></label><label><input type="checkbox" value="5"><span>S</span></label><label><input type="checkbox" value="6"><span>S</span></label></div><p class="form-error" id="scheduleError"></p><div class="dialog-actions"><button type="button" class="secondary" id="cancelDialog">Cancelar</button><button type="submit" class="primary">Salvar horário</button></div></form></dialog>
+  <dialog id="studyDialog" aria-labelledby="studyDialogTitle"><form id="studyForm" class="schedule-form">
+    <div class="dialog-head"><div><p class="eyebrow">REGISTRO DE SESSÃO</p><h2 id="studyDialogTitle">Registrar tempo</h2></div><button type="button" class="close" id="closeStudy" aria-label="Fechar">×</button></div>
+    <p class="study-context" id="studyContext">—</p>
+    <input type="hidden" id="studyRecordId">
+    <label>Quanto tempo você estudou?</label>
+    <div class="study-duration">
+      <label for="studyHours"><span>Horas</span><input id="studyHours" type="number" min="0" max="24" step="1" value="0" inputmode="numeric" required></label>
+      <label for="studyMinutes"><span>Minutos</span><input id="studyMinutes" type="number" min="0" max="59" step="1" value="0" inputmode="numeric" required></label>
+    </div>
+    <label for="studyNotes">O que você estudou? <span class="optional-label">(opcional)</span></label>
+    <textarea id="studyNotes" maxlength="1000" rows="4" placeholder="Ex.: Logaritmos, 15 exercícios e revisão de física..."></textarea>
+    <p class="study-help">Informe o tempo depois de terminar. Os registros anteriores permanecem salvos.</p>
+    <p class="form-error" id="studyError" role="alert"></p>
+    <div class="dialog-actions"><button type="button" class="secondary" id="cancelStudy">Cancelar</button><button type="submit" class="primary" id="saveStudy">Salvar estudo</button></div>
+  </form></dialog>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+</body>
+</html>
