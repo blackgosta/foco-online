@@ -163,3 +163,8 @@ dialog::backdrop{background:#000c;backdrop-filter:blur(5px)}
 /* V4.1: exclusão individual no histórico e nos detalhes do calendário. */
 .record-btn.record-delete{background:#241416;color:#ff949a;border:1px solid #713039;margin-left:5px}
 .record-btn.record-delete:hover{background:#6c1e29;color:#fff;border-color:#bb343f}
+
+/* Link discreto para o Boletim: nenhuma alteração na lógica da V6. */
+.notes-link{display:block;font-size:12px;color:#85858b;letter-spacing:.15px;align-self:stretch}
+.notes-link:hover{color:#f26b73}
+@media(max-width:760px){.sidebar>.notes-link{font-size:11px;align-self:flex-end;padding:3px 8px 12px;color:#b7a4a8}.sidebar>.notes-link:hover{color:#ff6e75}}

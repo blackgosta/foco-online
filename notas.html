@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#09090b">
+  <meta name="robots" content="noindex,nofollow,noarchive">
+  <meta name="description" content="Boletim pessoal de notas do FOCO.">
+  <title>FOCO / Boletim</title>
+  <link rel="stylesheet" href="./notas.css">
+  <script defer src="./notas.js"></script>
+</head>
+<body>
+  <div id="authGate" class="gate" hidden>
+    <div class="gate-card">
+      <div class="logo-mark">F/</div>
+      <div class="eyebrow">FOCO / ÁREA RESERVADA</div>
+      <h1>Boletim<span>.</span></h1>
+      <p>Entra no painel FOCO com tua chave antes de acessar o boletim.</p>
+      <a class="primary" href="./index.html">Voltar ao login</a>
+    </div>
+  </div>
+  <div class="grade-app" id="gradeApp" hidden>
+    <header class="topbar">
+      <div class="brand"><span class="logo-mark">F/</span><div><strong>FOCO<span>.</span></strong><small>BOLETIM / CONTROLE DE NOTAS</small></div></div>
+      <a class="back-link" href="./index.html">← Voltar ao painel</a>
+    </header>
+    <main class="content">
+      <div class="intro">
+        <div><div class="eyebrow">ÁREA RESERVADA <span class="dot">•</span> NOTAS</div><h1>Boletim<span>.</span></h1><p>Notas trimestrais, média anual e exame. Sem ocupar a visão geral.</p></div>
+        <div class="year-picker"><label for="yearSelect">ANO LETIVO</label><div class="year-row"><select id="yearSelect" aria-label="Ano letivo"></select><button id="newYear" type="button" class="icon-button" title="Adicionar ano">+</button></div></div>
+      </div>
+      <section class="summary-grid" aria-label="Resumo das notas">
+        <article class="summary-card"><span>MATÉRIAS</span><strong id="subjectCount">0</strong><small>Cadastradas</small></article>
+        <article class="summary-card"><span>APROVAÇÃO DIRETA</span><strong class="success" id="directCount">0</strong><small>Com os três trimestres</small></article>
+        <article class="summary-card"><span>NECESSITAM DE EXAME</span><strong class="danger" id="examCount">0</strong><small>Com os três trimestres</small></article>
+        <article class="summary-card"><span>INCOMPLETAS</span><strong id="missingCount">0</strong><small>Aguardando alguma nota</small></article>
+      </section>
+      <section class="panel">
+        <div class="section-head">
+          <div><div class="eyebrow">NOTAS / TRIMESTRAL</div><h2>Disciplinas</h2><p>Preenche as notas de 0,0 a 10,0. A conta é atualizada automaticamente.</p></div>
+          <button id="addSubject" class="primary" type="button">+ Matéria</button>
+        </div>
+        <div class="table-scroll">
+          <table class="grade-table"><thead><tr><th scope="col">MATÉRIA</th><th scope="col">1º TRI</th><th scope="col">2º TRI</th><th scope="col">3º TRI</th><th scope="col">SOMA / META 21</th><th scope="col">RESULTADO</th><th scope="col" class="action-head">AÇÃO</th></tr></thead><tbody id="gradesBody"></tbody></table>
+        </div>
+        <div class="table-footer"><span id="saveStatus" role="status" aria-live="polite">Carregando boletim…</span><span>Notas vazias = ainda não informadas</span></div>
+      </section>
+      <div class="bottom-grid">
+        <section class="panel rule-panel"><div class="eyebrow">CÁLCULO / IFRS</div><h2>Como é calculado</h2><div class="rule-math"><span>Média anual = (T1 + T2 + T3) ÷ 3</span><span>Média final = 60% anual + 40% exame</span></div><p>Meta anual: <b>21,0 pontos</b>. Pela tabela fornecida do Integrado Trimestral, <b>20,9 já arredonda para 7,0</b> e aparece como aprovação direta.</p><p>Quando os três trimestres estiverem preenchidos, o FOCO mostra a menor nota no exame (em décimos) necessária para alcançar a média final <b>5,0</b>, seguindo a tabela.</p></section>
+        <section class="panel backup-panel"><div class="eyebrow">ARMAZENAMENTO</div><h2>Teu boletim, neste navegador</h2><p>As notas são criptografadas com tua chave e guardadas <b>somente neste dispositivo/navegador</b>. Não entram no GitHub nem no banco da Cloudflare, e não sincronizam automaticamente entre PC e celular.</p><div class="backup-actions"><button class="outline" id="exportBtn" type="button">↓ Exportar backup</button><button class="outline" id="importBtn" type="button">↑ Importar backup</button><input id="importFile" type="file" accept=".json,application/json" hidden></div><p class="smallprint">Para levar as notas a outro aparelho, exporta aqui e importa lá usando a mesma chave. Se trocar a chave, importa o backup antes de perder acesso à antiga.</p></section>
+      </div>
+      <footer>FOCO / BOLETIM <span>•</span> PÁGINA SEPARADA DO PAINEL <span>•</span> V6.1</footer>
+    </main>
+  </div>
+  <dialog id="subjectDialog"><form id="subjectForm" method="dialog"><div class="dialog-heading"><div><div class="eyebrow">DISCIPLINA</div><h2 id="dialogHeading">Nova matéria</h2></div><button id="closeSubject" class="x-button" type="button" aria-label="Fechar">×</button></div><label for="subjectName">Nome da matéria</label><input id="subjectName" maxlength="70" minlength="2" placeholder="Ex.: Corrente Alternada" required><div class="dialog-buttons"><button class="outline" id="cancelSubject" type="button">Cancelar</button><button class="primary" type="submit">Salvar</button></div></form></dialog>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+</body>
+</html>
